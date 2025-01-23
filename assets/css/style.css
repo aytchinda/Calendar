@@ -19,6 +19,7 @@ body{
     background-color: var(--main-color-white);
     width: 90%;
     max-width: 300px;
+    border : 2px solid var(--main-color);
 }
 .calendrier-header{
     background-color: var(--main-color);
@@ -39,15 +40,13 @@ body{
 .calendrier .calendrier-weekday{
     display : grid;
     grid-template-columns: repeat(7, 1fr);
-    /* padding: 5px; */
     text-align: center;
     border-top: 0.6px solid;
 }
 .calendrier .calendrier-content{
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    /* padding: 5px; */
     text-align: center;
-    border-top: 0.6px solid;
+    background-color: rgb(221, 215, 207);
 }
 
