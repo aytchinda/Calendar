@@ -3,6 +3,9 @@ const calendrierWeekday = document.querySelector('.calendrier-weekday');
 const selectMonth = document.querySelector("select[name='currentMonth']");
 const selectYear = document.querySelector("select[name='currentYear']");
 const weekDays = ['DIM', 'LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM'];
+const date = new Date();
+const currentMonthIndex = date.getMonth();
+const currentYear = date.getFullYear();
 const months = [
     { name: "January", days: 31 },
     { name: "February", days: 28 }, // 29 jours en année bissextile
@@ -24,13 +27,15 @@ export const Calendrier = {
         weekDays.forEach((day) => {
             calendrierWeekday.innerHTML += `<div class="weekday-item">${day}</div>`
         });
-        Calendrier.displayDay(31);
         Calendrier.initMonth();
         Calendrier.initYear();
+        const days = months[currentMonthIndex].days;
+        Calendrier.displayDay(days);
 
     },
     displayDay: (num) => {
         let day = 1;
+        calendrierContent.innerHTML = '';
         while (day <= num) {
             calendrierContent.innerHTML += `<div class="day-item">${day}</div>`;
             day++;
@@ -38,13 +43,25 @@ export const Calendrier = {
     },
 
     initMonth: () => {
-        months.forEach((month) => {
-            selectMonth.innerHTML += `<option>${month.name}</option>`
+        months.forEach((month, index) => {
+            if (index === currentMonthIndex) {
+                selectMonth.innerHTML += `<option value="${index}" selected>${month.name}</option>`
+            } else {
+                selectMonth.innerHTML += `<option value="${index}">${month.name}</option>`
+            }
         })
+        selectMonth.onchange = () => {
+            const days = months[selectMonth.value].days;
+            Calendrier.displayDay(days);
+        }
     },
     initYear: () => {
         for (let i = 2025; i >= 1900; i--) {
-            selectYear.innerHTML += `<option>${i}</option>`
+            if (i === currentYear) {
+                selectYear.innerHTML += `<option selected>${i}</option>`
+            } else {
+                selectYear.innerHTML += `<option>${i}</option>`
+            }
 
         }
     }
