@@ -36,11 +36,11 @@ export const Calendrier = {
     displayDay: (num) => {
 
         //GESTION DE L'ANNEE BISSEXTILE
-        if(selectMonth.value ==1){
+        if (selectMonth.value == 1) {
             const year = parseInt(selectYear.value);
-            if( year%4 === 0 && year%100 >0|| year%400 === 0){
+            if (year % 4 === 0 && year % 100 > 0 || year % 400 === 0) {
                 num = 29
-            }else{
+            } else {
                 num = 28
             }
         }
@@ -51,6 +51,12 @@ export const Calendrier = {
             calendrierContent.innerHTML += `<div class="day-item">${day}</div>`;
             day++;
         }
+
+        let firstDayOfMonth = Calendrier.getWeekDay();
+
+        const firstItem = document.querySelector('.calendrier .calendrier-content .day-item:nth-child(1)');
+        firstItem.style.gridColumn = (firstDayOfMonth + 1) + ' / ' + (firstDayOfMonth + 2);
+
     },
 
     initMonth: () => {
@@ -81,6 +87,20 @@ export const Calendrier = {
     updateCalendrier: () => {
         const days = months[selectMonth.value].days;
         Calendrier.displayDay(days);
+    },
+
+    getWeekDay: () => {
+        let weekday
+        const d = 1;
+        const m = parseInt(selectMonth.value) + 1;
+        const y = parseInt(selectYear.value);
+
+        if (m < 3) {
+            weekday = (Math.trunc(((23 * m) / 9) + d + 4 + y + Math.trunc((y - 1) / 4) - Math.trunc((y - 1) / 100) + Math.trunc((y - 1) / 400)) % 7)
+        } else {
+            weekday = (Math.trunc(((23 * m) / 9) + d + 2 + y + Math.trunc((y) / 4) - Math.trunc((y) / 100) + Math.trunc((y) / 400)) % 7)
+        }
+        return weekday
     }
 
 
