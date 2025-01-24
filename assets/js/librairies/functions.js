@@ -34,6 +34,17 @@ export const Calendrier = {
 
     },
     displayDay: (num) => {
+
+        //GESTION DE L'ANNEE BISSEXTILE
+        if(selectMonth.value ==1){
+            const year = parseInt(selectYear.value);
+            if( year%4 === 0 && year%100 >0|| year%400 === 0){
+                num = 29
+            }else{
+                num = 28
+            }
+        }
+
         let day = 1;
         calendrierContent.innerHTML = '';
         while (day <= num) {
@@ -62,8 +73,14 @@ export const Calendrier = {
             } else {
                 selectYear.innerHTML += `<option>${i}</option>`
             }
-
         }
+        selectYear.onchange = () => {
+            Calendrier.updateCalendrier();
+        }
+    },
+    updateCalendrier: () => {
+        const days = months[selectMonth.value].days;
+        Calendrier.displayDay(days);
     }
 
 
