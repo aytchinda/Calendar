@@ -48,6 +48,11 @@ body{
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     background-color: rgb(221, 215, 207);
+    cursor: pointer;
+}
+.calendrier .calendrier-content .day-item:hover{
+    background-color: var(--main-color);
+    color: var(--main-color-white);
 }
 
 i{
