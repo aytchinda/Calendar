@@ -50,3 +50,6 @@ body{
     background-color: rgb(221, 215, 207);
 }
 
+i{
+    cursor: pointer;
+}

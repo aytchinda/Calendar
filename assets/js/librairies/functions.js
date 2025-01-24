@@ -4,6 +4,8 @@ const selectMonth = document.querySelector("select[name='currentMonth']");
 const selectYear = document.querySelector("select[name='currentYear']");
 const weekDays = ['DIM', 'LUN', 'MAR', 'MER', 'JEU', 'VEN', 'SAM'];
 const date = new Date();
+const prevMonth = document.getElementById('prevMonth');
+const nextMonth = document.getElementById('nextMonth');
 const currentMonthIndex = date.getMonth();
 const currentYear = date.getFullYear();
 const months = [
@@ -31,6 +33,32 @@ export const Calendrier = {
         Calendrier.initYear();
         const days = months[currentMonthIndex].days;
         Calendrier.displayDay(days);
+
+
+        prevMonth.onclick = () => {
+            if (selectMonth.value > 0) {
+                selectMonth.value = selectMonth.value - 1;
+
+            } else {
+                selectMonth.value = 11;
+                selectYear.value = selectYear.value - 1;
+            }
+            Calendrier.updateCalendrier()
+        }
+
+
+        nextMonth.onclick = () => {
+            if (selectMonth.value < 11) {
+                selectMonth.value++
+            }else{
+                selectMonth.value = 0;
+                selectYear.value++
+            }
+            Calendrier.updateCalendrier()
+
+        }
+       
+
 
     },
     displayDay: (num) => {
@@ -73,7 +101,7 @@ export const Calendrier = {
         }
     },
     initYear: () => {
-        for (let i = 2025; i >= 1900; i--) {
+        for (let i = 2600; i >= 1900; i--) {
             if (i === currentYear) {
                 selectYear.innerHTML += `<option selected>${i}</option>`
             } else {
